@@ -14,16 +14,25 @@ if (localStorage.getItem("products") != null) {   //zbon adeem
 }
 
 function addProduct() {
-    var product = {
-        name: productNameInput.value,
-        price: productPriceInput.value,
-        category: productCategoryInput.value,
-        describtion: productDescribtionInput.value
+
+    if(validateProductName() == true) {
+        var product = {
+            name: productNameInput.value,
+            price: productPriceInput.value,
+            category: productCategoryInput.value,
+            describtion: productDescribtionInput.value
+        }
+        productList.push(product)
+        localStorage.setItem("products", JSON.stringify(productList))
+        showProducts(productList)
+        clearForm()
+        productNameInput.classList.remove("is-invalid")
+        productNameInput.style.border = "0px solid green"
+    } else {
+       productNameInput.style.border = "2px solid red"
+       productNameInput.classList.add("is-invalid")
     }
-    productList.push(product)
-    localStorage.setItem("products", JSON.stringify(productList))
-    showProducts(productList)
-    clearForm()
+    
 
 }
 
@@ -114,5 +123,11 @@ function searchByName(word){
         } 
     }
     showProducts(foundedList)
+}
+
+function validateProductName(){
+
+    var regex = /^[A-Z][a-z]{3,10}$/
+    return regex.test(productNameInput.value) 
 }
 
