@@ -126,7 +126,6 @@ function searchByName(word){
 }
 
 function validateProductName(){
-
     var regex = /^[A-Z][a-z]{3,10}$/
     return regex.test(productNameInput.value) 
 }
